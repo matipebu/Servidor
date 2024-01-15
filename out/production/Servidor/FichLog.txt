@@ -1,0 +1,9 @@
+
+Cliente: 52596 iniciado, (15/01/24 11:18:07) (15/01/24 11:18:07)
+Consultando id: 2, solicitado por cliente: 1 (15/01/24 11:18:10)
+Consultando id: 1, solicitado por cliente: 1 (15/01/24 11:18:12)
+Consultando id: 3, solicitado por cliente: 1 (15/01/24 11:18:13)
+Consultando id: 3, solicitado por cliente: 1 (15/01/24 11:18:42)
+Consultando id: 1, solicitado por cliente: 1 (15/01/24 11:18:42)
+Consultando id: *, solicitado por cliente: 1 (15/01/24 11:18:44)
+=>FIN con cliente: 1, Tiempo total conectado: 36796 milisegundos (15/01/2024 11:18:44) (15/01/24 11:18:44)

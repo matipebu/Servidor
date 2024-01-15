@@ -1,7 +1,9 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ServidorTCP {
@@ -31,7 +33,7 @@ public class ServidorTCP {
     }
 
 
-     public static void main(String[] args) {
+      public static void main(String[] args) {
         ServerSocket serverSocket = null;
 
         try {
@@ -41,10 +43,17 @@ public class ServidorTCP {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
 
+                // Get current date and time
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                String dateStr = sdf.format(new Date());
+
+                // Log client connection
+                log("Cliente: " + clientSocket.getPort() + " iniciado, (" + dateStr + ")");
+
                 // Crea un nuevo hilo para manejar la conexión del cliente utilizando HiloServidor
                 Thread clientHandlerThread = new Thread(new HiloServidor(clientSocket, profesores));
 
-                // Asigna un nombre específico al hilo (puedes cambiar esto según tus necesidades)
+                // Asigna un nombre específico al hilo
                 clientHandlerThread.setName("ClienteThread-" + clientHandlerThread.getId());
 
                 clientHandlerThread.start();
@@ -62,4 +71,11 @@ public class ServidorTCP {
             }
         }
     }
+    private static void log(String message) {
+        objetoCompartido.log(message);
+    }
+
+
+
+
 }

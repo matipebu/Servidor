@@ -11,6 +11,8 @@ public class HiloServidor implements Runnable {
     private Socket clientSocket;
     private ArrayList<Profesor> profesores;
     private long idCliente;
+    private ServidorTCP servidorTCP;
+
 
     public HiloServidor(Socket socket, ArrayList<Profesor> profesores) {
         this.clientSocket = socket;
@@ -45,6 +47,7 @@ public class HiloServidor implements Runnable {
                     // Imprime la consulta del cliente
                     String consulta = "Consultando id: " + idProfesor + ", solicitado por cliente: " +
                             idCliente;
+                    log(consulta);
                     System.out.println(consulta);
 
                     // Busca el profesor en la base de datos
@@ -82,6 +85,7 @@ public class HiloServidor implements Runnable {
                         ", Tiempo total conectado: " + tiempoTotalConectado + " milisegundos (" +
                         obtenerFechaActual() + ")";
                 System.out.println(mensajeFin);
+                log(mensajeFin);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -102,5 +106,8 @@ public class HiloServidor implements Runnable {
     private String obtenerFechaActual() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return sdf.format(new Date());
+    }
+    private void log(String message) {
+        objetoCompartido.log(message);
     }
 }
