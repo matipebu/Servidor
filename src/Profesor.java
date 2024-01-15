@@ -3,6 +3,7 @@ import java.io.Serializable;
 public class Profesor implements Serializable {
     private static final long serialVersionUID = 1L;
 
+
     private int idprofesor;
     private String nombre;
     private Asignatura[] asignaturas;

@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+
 public class objetoCompartido {
     private static final String LOG_FILE_PATH = "src/FichLog.txt";
 
