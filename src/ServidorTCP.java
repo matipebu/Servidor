@@ -71,6 +71,7 @@ public class ServidorTCP {
             }
         }
     }
+
     private static void log(String message) {
         objetoCompartido.log(message);
     }
