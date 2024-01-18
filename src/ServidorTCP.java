@@ -9,6 +9,7 @@ import java.util.Date;
 public class ServidorTCP {
     private static final int PUERTO = 12345;
 
+
     static ArrayList<Profesor> profesores = new ArrayList<>();
     static {
         Asignatura asignatura1 = new Asignatura(1, "AD");
@@ -43,26 +44,24 @@ public class ServidorTCP {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
 
-                // Get current date and time
+                
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
                 String dateStr = sdf.format(new Date());
-
-                // Log client connection
-                log("Cliente: " + clientSocket.getPort() + " iniciado, (" + dateStr + ")");
-
-                // Crea un nuevo hilo para manejar la conexión del cliente utilizando HiloServidor
-                Thread clientHandlerThread = new Thread(new HiloServidor(clientSocket, profesores));
-
-                // Asigna un nombre específico al hilo
-                clientHandlerThread.setName("ClienteThread-" + clientHandlerThread.getId());
-
+                
+        
+                HiloServidor hiloServidor = new HiloServidor(clientSocket, profesores);
+                Thread clientHandlerThread = new Thread(hiloServidor);
                 clientHandlerThread.start();
+
+               
+                long idCliente = hiloServidor.getIdCliente();
+                log("Cliente: " + idCliente + " iniciado, (" + dateStr + ")");
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                // Cierra el ServerSocket en el bloque finally para asegurarse de que se cierre
                 if (serverSocket != null && !serverSocket.isClosed()) {
                     serverSocket.close();
                 }
@@ -76,6 +75,8 @@ public class ServidorTCP {
     private static void log(String message) {
         objetoCompartido.log(message);
     }
+
+    
 
 
 

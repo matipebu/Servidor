@@ -17,7 +17,7 @@ public class Profesor implements Serializable {
     }
 
 
-    // Getters y setters
+
     public int getIdprofesor() {
         return idprofesor;
     }

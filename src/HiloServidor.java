@@ -11,7 +11,7 @@ public class HiloServidor implements Runnable {
     private Socket clientSocket;
     private ArrayList<Profesor> profesores;
     private long idCliente;
-    private ServidorTCP servidorTCP;
+
 
 
     public HiloServidor(Socket socket, ArrayList<Profesor> profesores) {
@@ -28,6 +28,7 @@ public class HiloServidor implements Runnable {
     public void run() {
         ObjectInputStream inputStream = null;
         ObjectOutputStream outputStream = null;
+
         long tiempoInicioCliente = System.currentTimeMillis();
 
         try {
@@ -41,26 +42,21 @@ public class HiloServidor implements Runnable {
 
             while (true) {
                 try {
-                    // Lee el ID del cliente
                     String idProfesor = (String) inputStream.readObject();
 
-                    // Imprime la consulta del cliente
                     String consulta = "Consultando id: " + idProfesor + ", solicitado por cliente: " +
                             idCliente;
                     log(consulta);
                     System.out.println(consulta);
 
-                    // Busca el profesor en la base de datos
                     Profesor profesorEncontrado = buscarProfesorPorId(idProfesor);
 
-                    // Envía la información del profesor al cliente
                     if (profesorEncontrado != null) {
                         outputStream.writeObject(profesorEncontrado);
                     } else {
                         outputStream.writeObject("Profesor no encontrado");
                     }
                 } catch (IOException | ClassNotFoundException e) {
-                    // Cliente ha cerrado la conexión, salimos del bucle
                     break;
                 }
             }
@@ -68,7 +64,6 @@ public class HiloServidor implements Runnable {
             e.printStackTrace();
         } finally {
             try {
-                // Cierra los flujos y el socket para este cliente
                 if (inputStream != null) {
                     inputStream.close();
                 }
@@ -79,7 +74,6 @@ public class HiloServidor implements Runnable {
                     clientSocket.close();
                 }
 
-                // Tiempo total conectado
                 long tiempoTotalConectado = System.currentTimeMillis() - tiempoInicioCliente;
                 String mensajeFin = "=>FIN con cliente: " + idCliente +
                         ", Tiempo total conectado: " + tiempoTotalConectado + " milisegundos (" +
@@ -101,7 +95,7 @@ public class HiloServidor implements Runnable {
                 return profesor;
             }
         }
-        return null;  // Si no se encuentra el profesor
+        return null; 
     }
     
 
@@ -111,5 +105,8 @@ public class HiloServidor implements Runnable {
     }
     private void log(String message) {
         objetoCompartido.log(message);
+    }
+    public long getIdCliente() {
+        return idCliente;
     }
 }
